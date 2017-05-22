@@ -6,7 +6,6 @@ var filePath = "";
 var album = [];
 var index = 0;
 let regexp = /.*\.(jpg|jpeg|png|gif)$/i;
-var imgpath = "";
 
 
 var win = null;
