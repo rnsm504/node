@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>album-app</title>
+    <script>
+    const {ipcRenderer} = require('electron');
+    const {dialog} = require('electron').remote;
+    var info;
+
+     window.onload = function() {
+       info = document.getElementById('info');
+       getReadASync();
+     }
+
+     function getReadASync() {
+      // console.log("ssssss");
+      ipcRenderer.send('mul-async');
+      ipcRenderer.on('mul-async-replay', (event, arg) => {
+        msg(arg);
+      });
+    }
+
+    function msg(msg) {
+      info.src = "" + msg;
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+      document.getElementById("imgArea").addEventListener("click", function(){
+        getReadASync();
+      });
+    }, false);
+
+    function openDialog(){
+      var options = {
+        title : "open folder",
+        properties : ['openDirectory']
+      };
+      dialog.showOpenDialog(options, function(filenames) {
+        ipcRenderer.send('mul-async-dialog', filenames);
+        ipcRenderer.on('mul-async-dialog-replay', (event, arg) => {
+          msg(arg);
+        });
+      });
+    }
+    </script>
+  </head>
+  <body>
+    <input type="button" value="open" onclick="openDialog()">
+    <div id ="imgArea">
+      <img id="info" width="800" height="550"></img>
+    </div>
+  </body>
+</html>
