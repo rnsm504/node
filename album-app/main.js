@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 var ipc = require('electron').ipcMain;
 var fs = require('fs');
-var path = "/Users/msnr/Dropbox/Photos"; //初期値
+var path = ""; //初期値
 var filePath = "";
 var album = null;
 var index = 0;
